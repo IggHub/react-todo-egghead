@@ -22,3 +22,21 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.todo-app {
+  padding-top: 20px;
+  display: inline-block; /*//makes element to wrap nicely as screen resizes*/
+  text-align: left;
+}
+
+input {
+  font-size: 20px;
+}
+
+ul {
+  padding: 0px;
+}
+
+li {
+  list-style-type: none; /*//eliminate the dot on ul and li*/
+}
