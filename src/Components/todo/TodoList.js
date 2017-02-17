@@ -5,8 +5,12 @@ export const TodoList = (props) => {
   return (
     <div className="todo-list">
       <ul>
-        {props.todo.map(todo => <TodoItem key={todo.id} {...todo} />)}
+        {props.todos.map(todo => <TodoItem key={todo.id} {...todo} />)}
       </ul>
     </div>
   )
+}
+
+TodoList.propTypes = {
+  todos: React.PropTypes.array
 }
