@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TodoForm = (props) => {
+export const TodoForm = (props) => {
   return (
     <form>
       <p>Some form </p>
@@ -8,5 +8,3 @@ const TodoForm = (props) => {
     </form>
   )
 }
-
-export default TodoForm;
