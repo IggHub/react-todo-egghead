@@ -6,27 +6,22 @@ import {TodoForm, TodoList} from './Components/todo';
 import {addTodo, generateId} from './lib/todoHelpers';
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {
-      todo: [
-        {id: 1, name: 'learn JSX', isComplete: true},
-        {id: 2, name: 'Build Apps', isComplete: false},
-        {id: 3, name: 'Ship it!', isComplete: false}
-      ],
-      currentTodo: ''
-    };
-    this.handleSubmit=this.handleSubmit.bind(this);
-    this.handleInputChange=this.handleInputChange.bind(this);
-    this.handleEmptySubmit=this.handleEmptySubmit.bind(this);
+  state = {
+    todo: [
+      {id: 1, name: 'learn JSX', isComplete: true},
+      {id: 2, name: 'Build Apps', isComplete: false},
+      {id: 3, name: 'Ship it!', isComplete: false}
+    ],
+    currentTodo: ''
   }
-  handleInputChange(e){
+
+  handleInputChange = (e) => {
     this.setState({
       currentTodo: e.target.value
     })
   }
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
     e.preventDefault();//prevents form to submit and prevents it from refreshing page
     const newId = generateId();
     const newTodo = {id: newId, name: this.state.currentTodo, isComplete: false}
@@ -38,7 +33,7 @@ class App extends Component {
     })
   }
 
-  handleEmptySubmit(e){
+  handleEmptySubmit = (e) => {
     e.preventDefault();
     this.setState({
       errorMessage: 'Please fill in a non-empty todo item'
