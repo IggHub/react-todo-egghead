@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-//import {TodoForm} from './Components/todo/TodoForm';
 import {TodoForm, TodoList} from './Components/todo';
-import {addTodo, generateId} from './lib/todoHelpers';
+import {addTodo, generateId, findById, toggleTodo, updateTodo} from './lib/todoHelpers';
 
 class App extends Component {
   state = {
-    todo: [
+    todos: [
       {id: 1, name: 'learn JSX', isComplete: true},
       {id: 2, name: 'Build Apps', isComplete: false},
       {id: 3, name: 'Ship it!', isComplete: false}
@@ -15,6 +14,14 @@ class App extends Component {
     currentTodo: ''
   }
 
+  handleToggle = (id) => {
+    const todo = findById(id, this.state.todos)
+    const toggled = toggleTodo(todo)
+    const updatedTodos = updateTodo(this.state.todos, toggled)
+    this.setState({
+      todos: updatedTodos
+    })
+  }
   handleInputChange = (e) => {
     this.setState({
       currentTodo: e.target.value
@@ -25,9 +32,9 @@ class App extends Component {
     e.preventDefault();//prevents form to submit and prevents it from refreshing page
     const newId = generateId();
     const newTodo = {id: newId, name: this.state.currentTodo, isComplete: false}
-    const resultTodo = addTodo(this.state.todo, newTodo);
+    const resultTodo = addTodo(this.state.todos, newTodo);
     this.setState({
-      todo: resultTodo,
+      todos: resultTodo,
       currentTodo: '',
       errorMessage: ''
     })
@@ -52,7 +59,7 @@ class App extends Component {
           {this.state.currentTodo}
           {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
           <TodoForm inputHandler={this.handleInputChange} currentTodo={this.state.currentTodo} handleSubmit={submitHandler}/>
-          <TodoList todos={this.state.todo} />
+          <TodoList handleToggle={this.handleToggle} todos={this.state.todos} />
         </div>
       </div>
     );
