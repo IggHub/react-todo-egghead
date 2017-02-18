@@ -18,6 +18,7 @@ class App extends Component {
     };
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleInputChange=this.handleInputChange.bind(this);
+    this.handleEmptySubmit=this.handleEmptySubmit.bind(this);
   }
   handleInputChange(e){
     this.setState({
@@ -32,19 +33,30 @@ class App extends Component {
     const resultTodo = addTodo(this.state.todo, newTodo);
     this.setState({
       todo: resultTodo,
-      currentTodo: ''
+      currentTodo: '',
+      errorMessage: ''
     })
   }
+
+  handleEmptySubmit(e){
+    e.preventDefault();
+    this.setState({
+      errorMessage: 'Please fill in a non-empty todo item'
+    })
+  }
+
   render() {
+    const submitHandler = this.state.currentTodo ? this.handleSubmit : this.handleEmptySubmit
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>React TODOS</h2>
+          <h2>React todos</h2>
         </div>
         <div className="todo-app">
           {this.state.currentTodo}
-          <TodoForm inputHandler={this.handleInputChange} currentTodo={this.state.currentTodo} handleSubmit={this.handleSubmit}/>
+          {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
+          <TodoForm inputHandler={this.handleInputChange} currentTodo={this.state.currentTodo} handleSubmit={submitHandler}/>
           <TodoList todos={this.state.todo} />
         </div>
       </div>

@@ -40,3 +40,7 @@ ul {
 li {
   list-style-type: none; /*//eliminate the dot on ul and li*/
 }
+
+.error {
+  color: red
+}
