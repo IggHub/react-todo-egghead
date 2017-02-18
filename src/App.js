@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 //import {TodoForm} from './Components/todo/TodoForm';
 import {TodoForm, TodoList} from './Components/todo';
+import {addTodo, generateId} from './lib/todoHelpers';
 
 class App extends Component {
   constructor(){
@@ -14,11 +15,24 @@ class App extends Component {
         {id: 3, name: 'Ship it!', isComplete: false}
       ],
       currentTodo: ''
-    }
+    };
+    this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleInputChange=this.handleInputChange.bind(this);
   }
   handleInputChange(e){
     this.setState({
       currentTodo: e.target.value
+    })
+  }
+
+  handleSubmit(e){
+    e.preventDefault();//prevents form to submit and prevents it from refreshing page
+    const newId = generateId();
+    const newTodo = {id: newId, name: this.state.currentTodo, isComplete: false}
+    const resultTodo = addTodo(this.state.todo, newTodo);
+    this.setState({
+      todo: resultTodo,
+      currentTodo: ''
     })
   }
   render() {
@@ -30,7 +44,7 @@ class App extends Component {
         </div>
         <div className="todo-app">
           {this.state.currentTodo}
-          <TodoForm inputHandler={this.handleInputChange.bind(this)} currentTodo={this.state.currentTodo} />
+          <TodoForm inputHandler={this.handleInputChange} currentTodo={this.state.currentTodo} handleSubmit={this.handleSubmit}/>
           <TodoList todos={this.state.todo} />
         </div>
       </div>
