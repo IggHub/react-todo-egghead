@@ -34,3 +34,5 @@ test('pipe works with more than 2 args', () => {
   const result = pipeline(1, 2)
   expect(result).toBe(9)
 })
+
+ 
