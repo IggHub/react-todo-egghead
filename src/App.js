@@ -49,7 +49,7 @@ class App extends Component {
       errorMessage: ''
     })
     createTodo(newTodo)
-      .then(() => console.log('todo added!'))
+      .then(() => this.showTempMessage('Todo Added!'))
   }
 
   handleEmptySubmit = (e) => {
@@ -57,6 +57,11 @@ class App extends Component {
     this.setState({
       errorMessage: 'Please fill in a non-empty todo item'
     })
+  }
+
+  showTempMessage = (msg) => {
+    this.setState({message: msg})
+    setTimeout(() => this.setState({message: ''}), 2000) //in 2s, it will run the setState callback func
   }
 
   componentDidMount() {
@@ -75,6 +80,7 @@ class App extends Component {
         <div className="todo-app">
           {this.state.currentTodo}
           {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
+          {this.state.message && <span className="todoAddedMessage">{this.state.message}</span>}
           <TodoForm inputHandler={this.handleInputChange} currentTodo={this.state.currentTodo} handleSubmit={submitHandler}/>
           <TodoList
             handleToggle={this.handleToggle}

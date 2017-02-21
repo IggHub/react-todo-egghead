@@ -45,6 +45,10 @@ li {
   color: red
 }
 
+.todoAddedMessage {
+  color: blue
+}
+
 li span.delete-item {
   visibility: hidden;
 }
