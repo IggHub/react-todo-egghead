@@ -4,7 +4,7 @@ import './App.css';
 import {TodoForm, TodoList, Footer} from './Components/todo';
 import {addTodo, generateId, findById, toggleTodo, updateTodo, removeTodo, filterTodos} from './lib/todoHelpers';
 import {pipe, partial} from './lib/utils';
-import {loadTodos} from './lib/todoService';
+import {loadTodos, createTodo} from './lib/todoService';
 
 class App extends Component {
   state = {
@@ -48,6 +48,8 @@ class App extends Component {
       currentTodo: '',
       errorMessage: ''
     })
+    createTodo(newTodo)
+      .then(() => console.log('todo added!'))
   }
 
   handleEmptySubmit = (e) => {
@@ -60,6 +62,7 @@ class App extends Component {
   componentDidMount() {
     loadTodos().then(todos => this.setState({todos}))
   }
+
   render() {
     const submitHandler = this.state.currentTodo ? this.handleSubmit : this.handleEmptySubmit
     const displayTodos = filterTodos(this.state.todos, this.context.route)
